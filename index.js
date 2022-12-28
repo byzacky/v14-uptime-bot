@@ -2,7 +2,7 @@ const { PermissionsBitField, EmbedBuilder, ButtonStyle, Client, GatewayIntentBit
 const INTENTS = Object.values(GatewayIntentBits);
 const PARTIALS = Object.values(Partials);
 const Discord = require("discord.js")
-const louritydb = require("croxydb")
+const victoriadb = require("croxydb")
 const client = new Client({
     intents: INTENTS,
     allowedMentions: {
@@ -107,7 +107,7 @@ client.on('interactionCreate', async interaction => {
             )
 
         const server = interaction.guild
-        let sistem = louritydb.get(`uptimeSistemi_${interaction.guild.id}`)
+        let sistem = victoriadb.get(`uptimeSistemi_${interaction.guild.id}`)
         if (!sistem) return;
         let channel = sistem.kanal
 
@@ -136,33 +136,33 @@ client.on('interactionCreate', async interaction => {
     if (interaction.type !== InteractionType.ModalSubmit) return;
     if (interaction.customId === 'form') {
 
-        if (!louritydb.fetch(`uptimeLinks_${interaction.user.id}`)) {
-            louritydb.set(`uptimeLinks_${interaction.user.id}`, [])
+        if (!victoriadb.fetch(`uptimeLinks_${interaction.user.id}`)) {
+            victoriadb.set(`uptimeLinks_${interaction.user.id}`, [])
         }
 
         const link = interaction.fields.getTextInputValue("link")
 
-        let link2 = louritydb.fetch(`uptimeLinks_${interaction.user.id}`, [])
+        let link2 = victoriadb.fetch(`uptimeLinks_${interaction.user.id}`, [])
 
-        let sistem = louritydb.get(`uptimeSistemi_${interaction.guild.id}`)
+        let sistem = victoriadb.get(`uptimeSistemi_${interaction.guild.id}`)
         if (!sistem) return;
         let ozelrol = sistem.rol
 
         if (!link) return
 
         if (!interaction.member.roles.cache.has(ozelrol)) {
-            if (louritydb.fetch(`uptimeLinks_${interaction.user.id}`).length >= 3) {
+            if (victoriadb.fetch(`uptimeLinks_${interaction.user.id}`).length >= 3) {
                 return interaction.reply({
                     content: "En fazla 3 link ekleyebilirsin!",
                     ephemeral: true
                 }).catch(e => { })
             }
         }
-        // LİMİT AYARLARI BURADAN YAPILIR - LOURİTY <3
+        // LİMİT AYARLARI BURADAN YAPILIR - WARS AND VICTORIA <3
         if (interaction.member.roles.cache.has(ozelrol)) {
-            if (louritydb.fetch(`uptimeLinks_${interaction.user.id}`).length >= 5) {
+            if (victoriadb.fetch(`uptimeLinks_${interaction.user.id}`).length >= 10) {
                 return interaction.reply({
-                    content: "En fazla 5 link ekleyebilirsin!",
+                    content: "En fazla 10 link ekleyebilirsin!",
                     ephemeral: true
                 }).catch(e => { })
             }
@@ -191,8 +191,8 @@ client.on('interactionCreate', async interaction => {
         }
 
 
-        louritydb.push(`uptimeLinks_${interaction.user.id}`, link)
-        louritydb.push(`uptimeLinks`, link)
+        victoriadb.push(`uptimeLinks_${interaction.user.id}`, link)
+        victoriadb.push(`uptimeLinks`, link)
         interaction.reply({
             content: "Linkin başarıyla uptime sistemine eklendi!",
             ephemeral: true
@@ -213,13 +213,13 @@ client.on('interactionCreate', async interaction => {
     if (interaction.type !== InteractionType.ModalSubmit) return;
     if (interaction.customId === 'form2') {
 
-        const links = louritydb.get(`uptimeLinks_${interaction.user.id}`)
+        const links = victoriadb.get(`uptimeLinks_${interaction.user.id}`)
         let linkInput = interaction.fields.getTextInputValue("baslik1")
 
         if (!links.includes(linkInput)) return interaction.reply({ content: "Sistemde böyle bir link mevcut değil!", ephemeral: true }).catch(e => { })
 
-        louritydb.unpush(`uptimeLinks_${interaction.user.id}`, linkInput)
-        louritydb.unpush(`uptimeLinks`, linkInput)
+        victoriadb.unpush(`uptimeLinks_${interaction.user.id}`, linkInput)
+        victoriadb.unpush(`uptimeLinks`, linkInput)
 
         return interaction.reply({ content: "Linkin başarıyla sistemden silindi!", ephemeral: true }).catch(e => { })
     }
@@ -230,15 +230,15 @@ client.on('interactionCreate', async interaction => {
 client.on('interactionCreate', async interaction => {
     if (interaction.customId === "linklerim") {
 
-        const rr = louritydb.get(`uptimeLinks_${interaction.user.id}`)
+        const rr = victoriadb.get(`uptimeLinks_${interaction.user.id}`)
         if (!rr) return interaction.reply({ content: "Sisteme eklenmiş bir linkin yok!", ephemeral: true })
 
-        const links = louritydb.get(`uptimeLinks_${interaction.user.id}`).map(map => `▶️ \`${map}\` `).join("\n")
+        const links = victoriadb.get(`uptimeLinks_${interaction.user.id}`).map(map => `▶️ \`${map}\` `).join("\n")
 
         const linklerimEmbed = new EmbedBuilder()
             .setTitle(`Uptime Linklerin`)
             .setDescription(`${links || "Sisteme eklenmiş bir link yok!"}`)
-            .setFooter({ text: "Lourity Code" })
+            .setFooter({ text: "By Victoria" })
             .setColor("Blurple")
 
         interaction.reply({
