@@ -1,12 +1,12 @@
 {
-  "name": "lourity",
+  "name": "legend",
   "version": "9.9.9",
-  "description": "Lourity",
+  "description": "Legend Uptime <33",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Lourity",
+  "author": "Wave",
   "license": "MIT",
   "dependencies": {
     "@discordjs/rest": "^1.1.0",
