@@ -1,22 +1,22 @@
 const { Client, EmbedBuilder, PermissionsBitField } = require("discord.js");
-const louritydb = require("croxydb")
+const victoriadb = require("croxydb")
 const Discord = require("discord.js")
-// Lourity
+// WarsVisual : By Victoria
 module.exports = {
-    name: "uptime-ayarla",
-    description: "Uptime sistemini ayarlarsınız",
+    name: "uptime-set",
+    description: "You will set the uptime system",
     type: 1,
     options: [
         {
-            name: "kanal",
-            description: "Uptime sisteminin kullanılacağı kanalı ayarlarsınız.",
+            name: "channel",
+            description: "You set the channel on which the Uptime system will be used.",
             type: 7,
             required: true,
             channel_types: [0]
         },
         {
-            name: "özel-rol",
-            description: "Üyelerin daha fazla link ekleyebileceği rol.",
+            name: "premium-role",
+            description: "Role where members can add more links.",
             type: 8,
             required: true,
         },
@@ -28,29 +28,29 @@ module.exports = {
             .addComponents(
                 new Discord.ButtonBuilder()
                     .setEmoji("🗑️")
-                    .setLabel("Sistemi Sıfırla")
+                    .setLabel("Delete The System")
                     .setStyle(Discord.ButtonStyle.Danger)
                     .setCustomId("sistemSıfırla")
             )
 
         const yetki = new Discord.EmbedBuilder()
             .setColor("Red")
-            .setTitle("Yetersiz Yetki!")
-            .setDescription("> Bu komutu kullanabilmek için `Yönetici` yetkisine sahip olmalısın!")
+            .setTitle("Insufficient Permissons!")
+            .setDescription("> You must have 'Adminstrstor' permissons to use this command!")
 
-        const kanal = interaction.options.getChannel('kanal')
-        const rol = interaction.options.getRole('özel-rol')
+        const kanal = interaction.options.getChannel('channel')
+        const role = interaction.options.getRole('premium-role')
 
         const ayarlandi = new Discord.EmbedBuilder()
             .setColor("Green")
-            .setTitle("Başarıyla Ayarlandı!")
-            .setDescription(`Uptime sistemi başarıyla ${kanal} olarak **ayarlandı**!`)
+            .setTitle("Succesfully Setted!")
+            .setDescription(`> **Uptime system channel is setted ${kanal}**!`)
 
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) return interaction.reply({ embeds: [yetki], ephemeral: true })
 
         interaction.reply({ embeds: [ayarlandi], components: [row1], ephemeral: true })
 
-        louritydb.set(`uptimeSistemi_${interaction.guild.id}`, { kanal: kanal.id, rol: rol.id })
+        victoriadb.set(`uptimeSistemi_${interaction.guild.id}`, { kanal: kanal.id, rol: rol.id })
     }
 
 };
