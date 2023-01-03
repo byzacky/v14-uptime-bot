@@ -4,12 +4,12 @@ const { Routes } = require("discord-api-types/v10");
 const { TOKEN } = require("../config.json");
 const { Client, GatewayIntentBits, Partials } = require("discord.js");
 const INTENTS = Object.values(GatewayIntentBits);
-const louritydb = require("croxydb")
+const victoriadb = require("croxydb")
 const PARTIALS = Object.values(Partials);
 
 const {  Monitor } = require("uprobot.js");
 
-const links = louritydb.fetch("uptimeLinks");
+const links = victoriadb.fetch("uptimeLinks");
 const monitor = new Monitor({ array: links, duration: 4000 });
 
 const client = new Client({
@@ -31,9 +31,9 @@ module.exports = async (client) => {
   } catch (error) {
     console.error(error);
   }
-// Lourity - Paylaşılması yasaktır!!
-  console.log(`${client.user.tag} Aktif!`);
-  client.user.setActivity("Lourity Uptime Bot - discord.gg/altyapilar")
+// Victoria - No permissons to share!!
+  console.log(`${client.user.tag} logged on!`);
+  client.user.setActivity("#LegendUptime")
 
 
   monitor.start()
