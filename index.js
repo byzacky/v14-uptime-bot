@@ -11,8 +11,8 @@ const client = new Client({
     partials: PARTIALS,
     retryLimit: 3
 });
-// Lourity gelişmiş uptime botu :)
-// discord.gg/altyapilar
+// VICTORIA - LOVE <33
+// https://discord.gg/wD996m6bmB
 global.client = client;
 client.commands = (global.commands = []);
 
@@ -31,7 +31,7 @@ readdirSync('./commands').forEach(f => {
         type: 1
     });
 
-    console.log(`[COMMAND] ${props.name} komutu yüklendi.`)
+    console.log(`[COMMAND] ${props.name} named command registered.`)
 
 });
 readdirSync('./events').forEach(e => {
@@ -42,48 +42,48 @@ readdirSync('./events').forEach(e => {
     client.on(name, (...args) => {
         eve(client, ...args)
     });
-    console.log(`[EVENT] ${name} eventi yüklendi.`)
+    console.log(`[EVENT] ${name} named event registered.`)
 });
 
 
 client.login(TOKEN)
 
 // Uptime Modal
-const lourityModal = new ModalBuilder()
+const victoriaModal = new ModalBuilder()
     .setCustomId('form')
-    .setTitle('Link Ekle')
+    .setTitle('Add Link')
 const u2 = new TextInputBuilder()
     .setCustomId('link')
-    .setLabel('Proje Linkinizi Giriniz')
+    .setLabel('Enter Uptime Link')
     .setStyle(TextInputStyle.Paragraph)
     .setMinLength(8)
     .setMaxLength(200)
-    .setPlaceholder('https://lourity-code.glitch.me')
+    .setPlaceholder('https://warss.glitch.me')
     .setRequired(true)
 
 const row1 = new ActionRowBuilder().addComponents(u2);
-lourityModal.addComponents(row1);
+victoriaModal.addComponents(row1);
 
 
-const lourityModal2 = new ModalBuilder()
+const victoriaModal2 = new ModalBuilder()
     .setCustomId('form2')
-    .setTitle('Link Sil')
+    .setTitle('Delete Link')
 const u3 = new TextInputBuilder()
     .setCustomId('baslik1')
-    .setLabel('Proje Linkini Giriniz')
+    .setLabel('Enter Uptime Link')
     .setStyle(TextInputStyle.Paragraph)
     .setMinLength(8)
     .setMaxLength(200)
-    .setPlaceholder('https://lourity-code.glitch.me')
+    .setPlaceholder('https://warss-code.glitch.me')
     .setRequired(true)
 
 const row2 = new ActionRowBuilder().addComponents(u3);
-lourityModal2.addComponents(row2);
+victoriaModal2.addComponents(row2);
 
 // Uptime Kanala Gönderme
 client.on('interactionCreate', async interaction => {
 
-    if (interaction.commandName === "uptime-ayarla") {
+    if (interaction.commandName === "uptime-set") {
 
         const row = new Discord.ActionRowBuilder()
 
@@ -124,11 +124,11 @@ client.on('interactionCreate', async interaction => {
 
 })
 
-// Uptime Ekle
+// Add uptime links
 client.on('interactionCreate', async interaction => {
     if (interaction.customId === "ekle") {
 
-        await interaction.showModal(lourityModal);
+        await interaction.showModal(victoriaModal);
     }
 })
 
@@ -201,11 +201,11 @@ client.on('interactionCreate', async interaction => {
 })
 
 
-// Uptime Sil
+// Delete uptime link
 client.on('interactionCreate', async interaction => {
     if (interaction.customId === "sil") {
 
-        await interaction.showModal(lourityModal2);
+        await interaction.showModal(victoriaModal2);
     }
 })
 
@@ -226,7 +226,7 @@ client.on('interactionCreate', async interaction => {
 })
 
 
-// Linklerim
+// My links
 client.on('interactionCreate', async interaction => {
     if (interaction.customId === "linklerim") {
 
